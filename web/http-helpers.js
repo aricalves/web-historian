@@ -17,6 +17,7 @@ exports.serveAssets = function(res, asset, callback) {
     if (err) {
       res.writeHead(404);
       res.end();
+      
       return;
     }
     
@@ -25,6 +26,8 @@ exports.serveAssets = function(res, asset, callback) {
   });
   
 };
+
+// exports.loadPage = function(res, )
 
 
 

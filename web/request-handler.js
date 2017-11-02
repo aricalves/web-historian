@@ -18,18 +18,15 @@ exports.handleRequest = function (req, res) {
   }
 
   if (reqType === 'POST') {
-    req.on('data', function(data) {
-      let site = data.toString().split('=')[1];
-      if (archive.isUrlInList(site)) {
-        return;
-      } else {
-  
-        archive.addUrlToList(site, (data) => {
-          console.log('Added site to list.');
-        });
-        
-      }
+    
+    req.on('data', (data) => {
+      let url = data.toString().slice(4);
+      res.writeHead(302, url);
+      archive.addUrlToList(url, (data) => {
+        res.end();
+      });
     });
+    
   }
 
 };
