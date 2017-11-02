@@ -12,23 +12,31 @@ exports.headers = {
 };
 
 exports.serveAssets = function(res, asset, callback) {
-  
+
   fs.readFile(asset, 'utf8', (err, data) => {
     if (err) {
       res.writeHead(404);
       res.end();
-      
       return;
     }
-    
     res.writeHead(200, this.headers);
     res.end(data);
   });
-  
+
 };
 
 // exports.loadPage = function(res, )
+exports.loadingPage = function(res, callback) {
+  console.log('serve loading page');
 
+  var loadingPage = archive.paths.siteAssets + '/loading.html';
+
+  fs.readFile(loadingPage, function(error, data) {
+    res.writeHead(302, this.headers);
+    res.end(data, 'utf-8');
+  });
+
+};
 
 
 
