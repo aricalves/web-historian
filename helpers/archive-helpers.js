@@ -26,16 +26,53 @@ exports.initialize = function(pathsObj) {
 // modularize your code. Keep it clean!
 
 exports.readListOfUrls = function(callback) {
+  fs.readFile(exports.paths.list, 'utf8', (err, data) => {
+    if (err) {
+      throw err;
+    } else {
+      callback(data.toString().split('\n'));
+    }
+  });
 };
 
+
 exports.isUrlInList = function(url, callback) {
+  exports.readListOfUrls((data) => {
+    callback(data.includes(url));
+  });
+ 
 };
 
 exports.addUrlToList = function(url, callback) {
+  fs.writeFile(exports.paths.list, url, (err, data) => {
+    if (err) {
+      throw err;
+    } else {
+      callback(data);
+    }
+  });
 };
 
 exports.isUrlArchived = function(url, callback) {
+  //checking if a url exists in.... sites directory
+  fs.readdir(exports.paths.archivedSites, (err, files) => {
+    if (err) {
+      throw err;
+    }
+    callback(files.includes(url));
+  });
 };
 
 exports.downloadUrls = function(urls) {
+  urls.forEach((url) => {
+    var path = `${exports.paths.archivedSites}/${url}`;
+    
+    // TODO: Make GET req based on url, use 'fs.writeFile' as callback
+    
+    fs.writeFile(path, 'we are doing it', (err) => {
+      if (err) {
+        throw err;
+      }
+    });
+  });
 };
