@@ -1,10 +1,10 @@
-var expect = require('chai').expect;
-var server = require('../web/basic-server.js');
-var fs = require('fs');
-var archive = require('../helpers/archive-helpers');
-var path = require('path');
-var supertest = require('supertest');
-var initialize = require('../web/initialize.js');
+const expect = require('chai').expect;
+const server = require('../web/basic-server.js');
+const fs = require('fs');
+const archive = require('../helpers/archive-helpers');
+const path = require('path');
+const supertest = require('supertest');
+const initialize = require('../web/initialize.js');
 
 initialize(path.join(__dirname, '/testdata'));
 

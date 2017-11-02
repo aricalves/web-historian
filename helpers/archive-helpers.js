@@ -1,13 +1,7 @@
-var fs = require('fs');
-var path = require('path');
-var _ = require('underscore'); 
-
-/*
- * You will need to reuse the same paths many times over in the course of this sprint.
- * Consider using the `paths` object below to store frequently used file paths. This way,
- * if you move any files, you'll only need to change your code in one place! Feel free to
- * customize it in any way you wish.
- */
+const fs = require('fs');
+const path = require('path');
+const _ = require('underscore');
+const http = require('http');
 
 exports.paths = {
   siteAssets: path.join(__dirname, '../web/public'),
@@ -22,12 +16,9 @@ exports.initialize = function(pathsObj) {
   });
 };
 
-// The following function names are provided to you to suggest how you might
-// modularize your code. Keep it clean!
-
 exports.readListOfUrls = function(callback) {
   fs.readFile(exports.paths.list, 'utf8', (err, data) => {
-    if (err) {
+    if (err) { 
       throw err;
     } else {
       callback(data.toString().split('\n'));
@@ -54,7 +45,6 @@ exports.addUrlToList = function(url, callback) {
 };
 
 exports.isUrlArchived = function(url, callback) {
-  //checking if a url exists in.... sites directory
   fs.readdir(exports.paths.archivedSites, (err, files) => {
     if (err) {
       throw err;
@@ -64,15 +54,8 @@ exports.isUrlArchived = function(url, callback) {
 };
 
 exports.downloadUrls = function(urls) {
-  urls.forEach((url) => {
-    var path = `${exports.paths.archivedSites}/${url}`;
-    
-    // TODO: Make GET req based on url, use 'fs.writeFile' as callback
-    
-    fs.writeFile(path, 'we are doing it', (err) => {
-      if (err) {
-        throw err;
-      }
-    });
+  _.each(urls, url => {
+    let file = fs.createWriteStream(`${exports.paths.archivedSites}/${url}`);
+    http.get(`http://${url}`, response => response.pipe(file));
   });
 };

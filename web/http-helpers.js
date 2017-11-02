@@ -18,22 +18,24 @@ exports.serveAssets = function(res, asset, callback) {
       res.writeHead(404);
       res.end();
       return;
-    }
+    } 
     res.writeHead(200, this.headers);
     res.end(data);
+    
   });
 
 };
 
-// exports.loadPage = function(res, )
 exports.loadingPage = function(res, callback) {
-  console.log('serve loading page');
+  let page = `${archive.paths.siteAssets}/loading.html`;
 
-  var loadingPage = archive.paths.siteAssets + '/loading.html';
-
-  fs.readFile(loadingPage, function(error, data) {
+  fs.readFile(page, (error, data) => {
+    if (error) {
+      throw error;
+    }
     res.writeHead(302, this.headers);
     res.end(data, 'utf-8');
+    
   });
 
 };
