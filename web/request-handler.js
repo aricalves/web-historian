@@ -13,15 +13,12 @@ exports.handleRequest = function (req, res) {
       http.serveAssets(res, asset);
     } else {
       let asset = `${archive.paths.archivedSites}/${req.url}`;
-      http.serveAssets(res, asset);
+      http.serveAssets(res, asset, function(data) {
+        res.end(data);
+      });
     }
   }
 
-  // else if (req.url.substring(0, 4) === '/www') {
-  //       let asset = archive.paths.archivedSites + req.url;
-  //     } else {
-  //       let asset = archive.paths.siteAssets + req.url;
-  //     }
   if (reqType === 'POST') {
 
     req.on('data', (data) => {

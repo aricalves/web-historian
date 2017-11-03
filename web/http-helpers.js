@@ -21,7 +21,6 @@ exports.serveAssets = function(res, asset, callback) {
     } 
     res.writeHead(200, this.headers);
     res.end(data);
-    
   });
 
 };
@@ -35,7 +34,6 @@ exports.loadingPage = function(res, callback) {
     }
     res.writeHead(302, this.headers);
     res.end(data, 'utf-8');
-    
   });
 
 };
