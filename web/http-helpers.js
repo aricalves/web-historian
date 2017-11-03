@@ -33,7 +33,7 @@ exports.loadingPage = function(res, callback) {
       throw error;
     }
     res.writeHead(302, this.headers);
-    res.end(data, 'utf-8');
+    res.end(data, 'utf-8'); 
   });
 
 };
